@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
+import Category from "./pages/Category/Category";
+import Cart from "./pages/Cart/Cart";
+import SingleProduct from "./pages/SingleProduct/SingleProduct";
+import Header from "./components/Header/Header";
+import FetchError from "./components/FetchError.js/FetchError";
+import { dataContext } from "./context/dataContext";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import "./App.css";
+
+class App extends React.Component {
+  static contextType = dataContext;
+  render() {
+    const storeData = this.context;
+    const { categories, error, selectedCategoryName } = storeData;
+    return (
+      <div className="App">
+        {(categories.length && !error && (
+          <>
+            <Header />
+            <Switch>
+              <Route exact path="/">
+                <Redirect to={`/${selectedCategoryName}`} />
+              </Route>
+              <Route path="/cart">
+                <Cart />
+              </Route>
+              <Route path={"/:categoryName/:productId"}>
+                <SingleProduct />
+              </Route>
+              <Route path="/:categoryName">
+                <Category />
+              </Route>
+            </Switch>
+          </>
+        )) ||
+          (error && <FetchError />)}
+      </div>
+    );
+  }
 }
 
 export default App;

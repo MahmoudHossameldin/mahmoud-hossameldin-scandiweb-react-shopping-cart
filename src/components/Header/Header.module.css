@@ -1,0 +1,22 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 8rem;
+}
+.navbar > * {
+  flex: 1;
+}
+.logo {
+  text-align: center;
+}
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+}
+
+.actions > *:not(:first-child) {
+  margin-left: 2.2rem;
+}

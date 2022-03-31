@@ -1,0 +1,45 @@
+.productListItem {
+  padding: 1.6rem;
+}
+.imgContainer {
+  height: 33rem;
+  overflow: hidden;
+  position: relative;
+}
+.imgContainer span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-transform: uppercase;
+  font-size: 2.4rem;
+  color: #8d8f9a;
+}
+.featuredImage {
+  width: 100%;
+}
+.nameAndPrice {
+  position: relative;
+}
+.nameAndPrice p {
+  font-size: 1.8rem;
+  line-height: 2.88rem;
+}
+.name {
+  margin-top: 2.4rem;
+}
+.name + p {
+  font-weight: 500;
+}
+.addToCart {
+  position: absolute;
+  right: 0;
+  top: -2.4rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+.outOfStock {
+  opacity: 0.5;
+}

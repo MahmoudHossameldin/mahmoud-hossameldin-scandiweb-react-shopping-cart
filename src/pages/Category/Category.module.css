@@ -1,0 +1,12 @@
+.main h2 {
+  margin-top: 8rem;
+  margin-bottom: 10rem;
+  font-size: 4.2rem;
+}
+.productsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 38.6rem);
+  grid-auto-rows: 44.4rem;
+  grid-gap: 10rem 4rem;
+  margin-bottom: 19rem;
+}

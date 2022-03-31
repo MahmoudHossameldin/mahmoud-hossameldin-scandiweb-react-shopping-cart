@@ -1,0 +1,28 @@
+.menu {
+  display: flex;
+  align-self: stretch;
+}
+.menu a {
+  color: #1d1f22;
+  text-decoration: none;
+  display: flex;
+}
+.menu li {
+  padding: 0 1.6rem;
+  list-style-type: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: stretch;
+}
+.menu li p {
+  display: flex;
+  align-self: center;
+}
+.selected {
+  border-bottom: 2px solid #5ece7b;
+}
+.selected p {
+  color: #5ece7b;
+  font-weight: 600;
+}
