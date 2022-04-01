@@ -11,7 +11,6 @@ class CategoryMenu extends Component {
     const storeData = this.context;
     const { categories, selectedCategoryName, changeSelectedCategory } =
       storeData;
-
     return (
       <ul className={styles.menu}>
         {categories.map((category) => (

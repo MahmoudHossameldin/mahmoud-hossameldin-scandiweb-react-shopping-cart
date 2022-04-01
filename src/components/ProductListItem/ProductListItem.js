@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { dataContext } from "../../context/dataContext";
-import cartIcon from "../../icons/add-to-cart.svg";
 import { Link } from "react-router-dom";
 import styles from "./ProductListItem.module.css";
+import AddToCartIcon from "../AddToCartIcon/AddToCartIcon";
 
 export default class ProductListItem extends Component {
   static contextType = dataContext;
@@ -39,13 +39,7 @@ export default class ProductListItem extends Component {
           </div>
           <div className={styles.nameAndPrice}>
             {product.attributes.length === 0 && (
-              <button className={styles.addToCart}>
-                <img
-                  src={cartIcon}
-                  alt="add-to-cart"
-                  className={styles.cartIcon}
-                />
-              </button>
+              <AddToCartIcon product={product} />
             )}
             <p className={styles.name}>
               {product.brand} {product.name}

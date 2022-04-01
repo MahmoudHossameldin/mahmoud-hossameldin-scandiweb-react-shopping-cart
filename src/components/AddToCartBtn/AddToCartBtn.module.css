@@ -1,0 +1,11 @@
+.addToCartBtn {
+  background-color: #5ece7b;
+  font-weight: 600;
+  line-height: 1.92rem;
+  color: #ffffff;
+  text-transform: uppercase;
+  padding: 1.6rem 9.35rem;
+  border: none;
+  margin-bottom: 4rem;
+  width: 100%;
+}

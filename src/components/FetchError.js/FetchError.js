@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import styles from "./FetchError.module.css";
 
 export default class FetchError extends Component {
+  error = this.props.error;
   render() {
+    console.log(this.error);
     return (
       <div className={styles.fetchError}>
         Cannot get the store data from the API, please install{" "}

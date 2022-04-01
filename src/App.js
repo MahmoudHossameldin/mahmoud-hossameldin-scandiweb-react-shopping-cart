@@ -35,7 +35,7 @@ class App extends React.Component {
             </Switch>
           </>
         )) ||
-          (error && <FetchError />)}
+          (error && <FetchError error={error} />)}
       </div>
     );
   }

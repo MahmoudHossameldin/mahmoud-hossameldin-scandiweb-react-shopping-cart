@@ -1,0 +1,28 @@
+.choices {
+  margin-top: 0.8rem;
+  margin-bottom: 4rem;
+}
+.choices button {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1.6rem;
+  padding: 1.3rem 2.7rem 1.4rem;
+  border: 1px solid #1d1f22;
+  margin-bottom: 0.8rem;
+}
+.choices button:focus {
+  border: 1px solid #1d1f22;
+}
+.choices button:not(:last-child) {
+  margin-right: 1.2rem;
+}
+div .swatch {
+  padding: 2.5rem;
+}
+div .swatch.selected {
+  border-radius: 35%;
+  border: 2px solid #1d1f22;
+}
+div div .selected:not(.swatch) {
+  background-color: #1d1f22 !important;
+  color: #ffffff;
+}

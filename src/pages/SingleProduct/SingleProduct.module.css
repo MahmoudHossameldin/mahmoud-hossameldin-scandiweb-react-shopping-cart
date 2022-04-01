@@ -46,50 +46,12 @@
   font-weight: 700;
   text-transform: uppercase;
 }
-.choices {
-  margin-top: 0.8rem;
-  margin-bottom: 4rem;
-}
-.choices button {
-  font-family: "Source Sans Pro", sans-serif;
-  font-size: 1.6rem;
-  padding: 1.3rem 2.7rem 1.4rem;
-  border: 1px solid #1d1f22;
-  margin-bottom: 0.8rem;
-}
-.choices button:focus {
-  border: 1px solid #1d1f22;
-}
-.choices button:not(:last-child) {
-  margin-right: 1.2rem;
-}
-div .swatch {
-  padding: 2.5rem;
-}
-div .swatch.selected {
-  border-radius: 35%;
-  border: 2px solid #1d1f22;
-}
+
 .price {
   font-size: 2.4rem;
   margin-top: 1rem;
   margin-bottom: 2rem;
   display: block;
-}
-.addToCartBtn {
-  background-color: #5ece7b;
-  font-weight: 600;
-  line-height: 1.92rem;
-  color: #ffffff;
-  text-transform: uppercase;
-  padding: 1.6rem 9.35rem;
-  border: none;
-  margin-bottom: 4rem;
-  width: 100%;
-}
-div div .selected:not(.swatch) {
-  background-color: #1d1f22 !important;
-  color: #ffffff;
 }
 .description {
   font-family: "Roboto", sans-serif;

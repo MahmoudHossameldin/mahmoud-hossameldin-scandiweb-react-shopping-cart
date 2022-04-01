@@ -4,6 +4,8 @@ import { withRouter } from "react-router-dom";
 import styles from "./SingleProduct.module.css";
 import DOMPurify from "dompurify";
 import ProductGallery from "../../components/ProductGallery/ProductGallery";
+import ProductAttribute from "../../components/ProductAttribute/ProductAttribute";
+import AddToCartBtn from "../../components/AddToCartBtn/AddToCartBtn";
 
 class SingleProduct extends Component {
   static contextType = dataContext;
@@ -34,28 +36,7 @@ class SingleProduct extends Component {
           <p className={styles.productName}>{product.name}</p>
           {attributes &&
             attributes.map((attribute) => (
-              <div key={attribute.id} className={styles.options}>
-                <span>{`${attribute.name}:`}</span>
-                <div className={styles.choices}>
-                  {attribute.items.map((item, index) => (
-                    <button
-                      key={item.id}
-                      style={
-                        attribute.type === "swatch"
-                          ? {
-                              backgroundColor: item.value,
-                            }
-                          : { background: "none" }
-                      }
-                      className={`${
-                        attribute.type === "swatch" ? styles.swatch : ""
-                      } ${index === 0 ? styles.selected : ""}`}
-                    >
-                      {attribute.type !== "swatch" && item.displayValue}
-                    </button>
-                  ))}
-                </div>
-              </div>
+              <ProductAttribute key={attribute.id} attribute={attribute} />
             ))}
           <span>Price:</span>
           <span className={styles.price}>
@@ -63,11 +44,10 @@ class SingleProduct extends Component {
             {price.amount}
           </span>
           {product.inStock ? (
-            <button className={styles.addToCartBtn}>Add to cart</button>
+            <AddToCartBtn product={product} />
           ) : (
             <p className={styles.outOfStock}>Out of stock</p>
           )}
-
           <div
             className={styles.description}
             dangerouslySetInnerHTML={{

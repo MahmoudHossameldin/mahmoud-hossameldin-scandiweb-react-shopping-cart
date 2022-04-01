@@ -50,11 +50,13 @@ class DataContextProvider extends React.Component {
   }
 
   render() {
-    const { categories } = this.state;
-    const { currencies } = this.state;
-    const { error } = this.state;
-    const { selectedCategoryName } = this.state;
-    const { selectedCurrencySymbol } = this.state;
+    const {
+      categories,
+      currencies,
+      error,
+      selectedCategoryName,
+      selectedCurrencySymbol,
+    } = this.state;
     const changeSelectedCategory = this.changeSelectedCategory;
     const changeSelectedCurrency = this.changeSelectedCurrency;
 

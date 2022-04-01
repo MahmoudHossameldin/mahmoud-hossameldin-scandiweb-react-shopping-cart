@@ -31,15 +31,6 @@
 .name + p {
   font-weight: 500;
 }
-.addToCart {
-  position: absolute;
-  right: 0;
-  top: -2.4rem;
-  transform: translateY(-50%);
-  cursor: pointer;
-  border: none;
-  background: none;
-}
 .outOfStock {
   opacity: 0.5;
 }
