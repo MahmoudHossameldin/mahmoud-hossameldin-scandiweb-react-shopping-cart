@@ -1,57 +1,96 @@
 import React, { Component } from "react";
-import { dataContext } from "../../context/dataContext";
-import { withRouter } from "react-router-dom";
 import styles from "./SingleProduct.module.css";
 import DOMPurify from "dompurify";
 import ProductGallery from "../../components/ProductGallery/ProductGallery";
 import ProductAttribute from "../../components/ProductAttribute/ProductAttribute";
-import AddToCartBtn from "../../components/AddToCartBtn/AddToCartBtn";
 
-class SingleProduct extends Component {
-  static contextType = dataContext;
+export default class SingleProduct extends Component {
+  selectedCurrencySymbol = this.props.selectedCurrencySymbol;
+  categoryObjFromAPI = this.props.categories.find(
+    (category) => category.name === this.props.currentCategoryName
+  );
+  product = this.categoryObjFromAPI.products.find(
+    (product) => product.id === this.props.currentProductId
+  );
+
+  state = {
+    AllAttributesValues: [],
+  };
+
+  attributesSelections = (attributeName, selectionValue) => {
+    // if attribute exists
+    if (this.state.AllAttributesValues.some((attr) => attr[attributeName])) {
+      // update attribute
+      const index = this.state.AllAttributesValues.findIndex((attrObj) => {
+        return attrObj[attributeName];
+      });
+      this.setState((prevAttributes) => {
+        return {
+          AllAttributesValues: [
+            ...prevAttributes.AllAttributesValues.slice(0, index),
+            { [attributeName]: selectionValue },
+            ...prevAttributes.AllAttributesValues.slice(index + 1),
+          ],
+        };
+      });
+    } else {
+      // add attribute
+      this.setState((prevAttributes) => ({
+        AllAttributesValues: [
+          ...prevAttributes.AllAttributesValues,
+          { [attributeName]: selectionValue },
+        ],
+      }));
+    }
+  };
 
   render() {
-    const storeData = this.context;
-    const selectedCurrencySymbol = storeData.selectedCurrencySymbol;
-    const categories = storeData.categories;
-    const currentCategoryName = this.props.match.params.categoryName;
-    const currentProductId = this.props.match.params.productId;
-    const categoryObjFromAPI = categories.find(
-      (category) => category.name === currentCategoryName
+    console.log(this.state.AllAttributesValues);
+    const price = this.product.prices.find(
+      (price) => price.currency.symbol === this.selectedCurrencySymbol
     );
-    const productsOfCurrentCategory = categoryObjFromAPI.products;
-    const product = productsOfCurrentCategory.find(
-      (product) => product.id === currentProductId
-    );
-    const price = product.prices.find(
-      (price) => price.currency.symbol === selectedCurrencySymbol
-    );
-    const attributes = product.attributes.length && product.attributes;
+    const attributes =
+      this.product.attributes.length && this.product.attributes;
 
     return (
       <div className={styles.singleProduct}>
-        <ProductGallery product={product} />
+        <ProductGallery product={this.product} />
         <div>
-          <p className={styles.brand}>{product.brand}</p>
-          <p className={styles.productName}>{product.name}</p>
-          {attributes &&
-            attributes.map((attribute) => (
-              <ProductAttribute key={attribute.id} attribute={attribute} />
-            ))}
+          <p className={styles.brand}>{this.product.brand}</p>
+          <p className={styles.productName}>{this.product.name}</p>
+          {attributes
+            ? attributes.map((attribute) => (
+                <ProductAttribute
+                  key={attribute.id}
+                  attribute={attribute}
+                  attributesSelections={this.attributesSelections}
+                />
+              ))
+            : ""}
           <span>Price:</span>
           <span className={styles.price}>
             {price.currency.symbol}
             {price.amount}
           </span>
-          {product.inStock ? (
-            <AddToCartBtn product={product} />
+          {this.product.inStock ? (
+            <button
+              className={styles.addToCartBtn}
+              onClick={() =>
+                this.props.addToCart(
+                  this.product,
+                  this.state.AllAttributesValues
+                )
+              }
+            >
+              Add to cart
+            </button>
           ) : (
             <p className={styles.outOfStock}>Out of stock</p>
           )}
           <div
             className={styles.description}
             dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(product.description),
+              __html: DOMPurify.sanitize(this.product.description),
             }}
           ></div>
         </div>
@@ -59,8 +98,6 @@ class SingleProduct extends Component {
     );
   }
 }
-
-export default withRouter(SingleProduct);
 
 /*
   {

@@ -1,23 +1,39 @@
 import React from "react";
 
 const cartContext = React.createContext();
-const { Provider } = cartContext;
+const { Provider, Consumer } = cartContext;
 
 class CartContextProvider extends React.Component {
   state = {
     productsInCart: [],
   };
 
-  addToCart = (product, quantity = 1, selectedAttributes = null) => {
+  addToCart = (product, selectedAttributes = null, quantity = 1) => {
     if (!product.inStock) return;
 
+    // if (
+    //   this.state.productsInCart.some(
+    //     (productObj) => productObj.product.id === product.id
+    //   )
+    // ) {
+    //   // if the product is already in cart, do nothing!
+    // } else {
+    //   this.setState({
+    //     productsInCart: [
+    //       ...this.state.productsInCart,
+    //       {
+    //         product: product,
+    //         quantity: quantity,
+    //         selectedAttributes: selectedAttributes,
+    //       },
+    //     ],
+    //   });
+    // }
     if (
-      this.state.productsInCart.some(
+      !this.state.productsInCart.some(
         (productObj) => productObj.product.id === product.id
       )
     ) {
-      // if the product is already in cart, do nothing!
-    } else {
       this.setState({
         productsInCart: [
           ...this.state.productsInCart,
@@ -32,6 +48,7 @@ class CartContextProvider extends React.Component {
   };
 
   render() {
+    console.log(this.state.productsInCart);
     const { productsInCart } = this.state;
     const addToCart = this.addToCart;
 
@@ -43,4 +60,4 @@ class CartContextProvider extends React.Component {
   }
 }
 
-export { CartContextProvider, cartContext };
+export { CartContextProvider, cartContext, Consumer as CartContextConsumer };

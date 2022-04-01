@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Category from "./pages/Category/Category";
 import Cart from "./pages/Cart/Cart";
-import SingleProduct from "./pages/SingleProduct/SingleProduct";
+import SingleProductWrapper from "./pages/SingleProductWrapper/SingleProductWrapper";
 import Header from "./components/Header/Header";
 import FetchError from "./components/FetchError.js/FetchError";
 import { dataContext } from "./context/dataContext";
@@ -27,7 +27,7 @@ class App extends React.Component {
                 <Cart />
               </Route>
               <Route path={"/:categoryName/:productId"}>
-                <SingleProduct />
+                <SingleProductWrapper />
               </Route>
               <Route path="/:categoryName">
                 <Category />

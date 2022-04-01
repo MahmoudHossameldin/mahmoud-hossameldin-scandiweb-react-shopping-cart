@@ -2,7 +2,7 @@ import React from "react";
 import { client, CombinedField, Query } from "@tilework/opus";
 
 const dataContext = React.createContext();
-const { Provider } = dataContext;
+const { Provider, Consumer } = dataContext;
 
 class DataContextProvider extends React.Component {
   state = {
@@ -78,7 +78,7 @@ class DataContextProvider extends React.Component {
   }
 }
 
-export { DataContextProvider, dataContext };
+export { DataContextProvider, dataContext, Consumer as DataContextConsumer };
 
 /*
   {

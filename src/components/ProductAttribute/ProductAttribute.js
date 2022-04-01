@@ -3,6 +3,7 @@ import styles from "./ProductAttribute.module.css";
 
 export default class ProductAttribute extends Component {
   attribute = this.props.attribute;
+  attributeNameAndValue = this.props.attributesSelections;
   state = {
     selectedAttribute: this.attribute.items[0],
   };
@@ -13,9 +14,24 @@ export default class ProductAttribute extends Component {
     });
   };
 
+  sendAttributeToParent = () => {
+    this.attributeNameAndValue(
+      this.attribute.name,
+      this.state.selectedAttribute.value
+    );
+  };
+
+  componentDidMount() {
+    this.sendAttributeToParent();
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.selectedAttribute !== this.state.selectedAttribute) {
+      this.sendAttributeToParent();
+    }
+  }
+
   render() {
     const attribute = this.attribute;
-    console.log(this.state.selectedAttribute);
     return (
       <div className={styles.options}>
         <span>{`${attribute.name}:`}</span>
@@ -35,7 +51,7 @@ export default class ProductAttribute extends Component {
               }`}
               onClick={() => this.changeSelectedAttribute(item)}
             >
-              {attribute.type !== "swatch" && item.displayValue}
+              {attribute.type !== "swatch" && item.value}
             </button>
           ))}
         </div>
