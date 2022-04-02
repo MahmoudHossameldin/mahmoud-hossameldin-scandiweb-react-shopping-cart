@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styles from "./SingleProduct.module.css";
 import DOMPurify from "dompurify";
 import ProductGallery from "../../components/ProductGallery/ProductGallery";
-import ProductAttribute from "../../components/ProductAttribute/ProductAttribute";
+import AddToCartForm from "../../components/AddToCartForm/AddToCartForm";
 
 export default class SingleProduct extends Component {
   selectedCurrencySymbol = this.props.selectedCurrencySymbol;
@@ -13,39 +13,7 @@ export default class SingleProduct extends Component {
     (product) => product.id === this.props.currentProductId
   );
 
-  state = {
-    AllAttributesValues: [],
-  };
-
-  attributesSelections = (attributeName, selectionValue) => {
-    // if attribute exists
-    if (this.state.AllAttributesValues.some((attr) => attr[attributeName])) {
-      // update attribute
-      const index = this.state.AllAttributesValues.findIndex((attrObj) => {
-        return attrObj[attributeName];
-      });
-      this.setState((prevAttributes) => {
-        return {
-          AllAttributesValues: [
-            ...prevAttributes.AllAttributesValues.slice(0, index),
-            { [attributeName]: selectionValue },
-            ...prevAttributes.AllAttributesValues.slice(index + 1),
-          ],
-        };
-      });
-    } else {
-      // add attribute
-      this.setState((prevAttributes) => ({
-        AllAttributesValues: [
-          ...prevAttributes.AllAttributesValues,
-          { [attributeName]: selectionValue },
-        ],
-      }));
-    }
-  };
-
   render() {
-    console.log(this.state.AllAttributesValues);
     const price = this.product.prices.find(
       (price) => price.currency.symbol === this.selectedCurrencySymbol
     );
@@ -58,35 +26,12 @@ export default class SingleProduct extends Component {
         <div>
           <p className={styles.brand}>{this.product.brand}</p>
           <p className={styles.productName}>{this.product.name}</p>
-          {attributes
-            ? attributes.map((attribute) => (
-                <ProductAttribute
-                  key={attribute.id}
-                  attribute={attribute}
-                  attributesSelections={this.attributesSelections}
-                />
-              ))
-            : ""}
-          <span>Price:</span>
-          <span className={styles.price}>
-            {price.currency.symbol}
-            {price.amount}
-          </span>
-          {this.product.inStock ? (
-            <button
-              className={styles.addToCartBtn}
-              onClick={() =>
-                this.props.addToCart(
-                  this.product,
-                  this.state.AllAttributesValues
-                )
-              }
-            >
-              Add to cart
-            </button>
-          ) : (
-            <p className={styles.outOfStock}>Out of stock</p>
-          )}
+          <AddToCartForm
+            product={this.product}
+            addToCart={this.props.addToCart}
+            attributes={attributes}
+            price={price}
+          />
           <div
             className={styles.description}
             dangerouslySetInnerHTML={{

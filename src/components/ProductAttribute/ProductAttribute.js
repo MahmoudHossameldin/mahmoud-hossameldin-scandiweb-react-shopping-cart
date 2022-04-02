@@ -3,21 +3,21 @@ import styles from "./ProductAttribute.module.css";
 
 export default class ProductAttribute extends Component {
   attribute = this.props.attribute;
-  attributeNameAndValue = this.props.attributesSelections;
+  attributesAndSelections = this.props.attributesAndSelections;
   state = {
-    selectedAttribute: this.attribute.items[0],
+    selectedValue: this.attribute.items[0],
   };
 
-  changeSelectedAttribute = (selectedAttribute) => {
+  changeSelection = (newSelection) => {
     this.setState({
-      selectedAttribute: selectedAttribute,
+      selectedValue: newSelection,
     });
   };
 
   sendAttributeToParent = () => {
-    this.attributeNameAndValue(
+    this.attributesAndSelections(
       this.attribute.name,
-      this.state.selectedAttribute.value
+      this.state.selectedValue.value
     );
   };
 
@@ -25,7 +25,7 @@ export default class ProductAttribute extends Component {
     this.sendAttributeToParent();
   }
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.selectedAttribute !== this.state.selectedAttribute) {
+    if (prevState.selectedValue !== this.state.selectedValue) {
       this.sendAttributeToParent();
     }
   }
@@ -47,9 +47,9 @@ export default class ProductAttribute extends Component {
                   : { background: "none" }
               }
               className={`${attribute.type === "swatch" ? styles.swatch : ""} ${
-                item === this.state.selectedAttribute ? styles.selected : ""
+                item === this.state.selectedValue ? styles.selected : ""
               }`}
-              onClick={() => this.changeSelectedAttribute(item)}
+              onClick={() => this.changeSelection(item)}
             >
               {attribute.type !== "swatch" && item.value}
             </button>

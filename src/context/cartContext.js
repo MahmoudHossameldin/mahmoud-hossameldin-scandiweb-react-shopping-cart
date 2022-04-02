@@ -11,24 +11,6 @@ class CartContextProvider extends React.Component {
   addToCart = (product, selectedAttributes = null, quantity = 1) => {
     if (!product.inStock) return;
 
-    // if (
-    //   this.state.productsInCart.some(
-    //     (productObj) => productObj.product.id === product.id
-    //   )
-    // ) {
-    //   // if the product is already in cart, do nothing!
-    // } else {
-    //   this.setState({
-    //     productsInCart: [
-    //       ...this.state.productsInCart,
-    //       {
-    //         product: product,
-    //         quantity: quantity,
-    //         selectedAttributes: selectedAttributes,
-    //       },
-    //     ],
-    //   });
-    // }
     if (
       !this.state.productsInCart.some(
         (productObj) => productObj.product.id === product.id
@@ -39,8 +21,8 @@ class CartContextProvider extends React.Component {
           ...this.state.productsInCart,
           {
             product: product,
-            quantity: quantity,
             selectedAttributes: selectedAttributes,
+            quantity: quantity,
           },
         ],
       });

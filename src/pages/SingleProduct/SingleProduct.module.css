@@ -46,29 +46,6 @@
   font-weight: 700;
   text-transform: uppercase;
 }
-
-.price {
-  font-size: 2.4rem;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-  display: block;
-}
-.addToCartBtn {
-  background-color: #5ece7b;
-  font-weight: 600;
-  line-height: 1.92rem;
-  color: #ffffff;
-  text-transform: uppercase;
-  padding: 1.6rem 9.35rem;
-  border: none;
-  margin-bottom: 4rem;
-  width: 100%;
-}
 .description {
   font-family: "Roboto", sans-serif;
-}
-.outOfStock {
-  color: red;
-  text-transform: uppercase;
-  margin-bottom: 1rem;
 }
