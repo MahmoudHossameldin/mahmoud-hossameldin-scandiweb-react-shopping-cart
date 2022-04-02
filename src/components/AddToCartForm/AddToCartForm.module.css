@@ -1,9 +1,3 @@
-.price {
-  font-size: 2.4rem;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-  display: block;
-}
 .addToCartBtn {
   background-color: #5ece7b;
   font-weight: 600;
@@ -14,6 +8,10 @@
   border: none;
   margin-bottom: 4rem;
   width: 100%;
+}
+.addToCartBtn:disabled {
+  opacity: 0.5;
+  cursor: no-drop;
 }
 .outOfStock {
   color: red;

@@ -13,7 +13,7 @@ class CartContextProvider extends React.Component {
 
     if (
       !this.state.productsInCart.some(
-        (productObj) => productObj.product.id === product.id
+        (stateObj) => stateObj.product.id === product.id
       )
     ) {
       this.setState({

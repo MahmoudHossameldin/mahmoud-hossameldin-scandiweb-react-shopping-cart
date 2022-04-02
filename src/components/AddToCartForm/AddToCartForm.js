@@ -1,66 +1,63 @@
 import React, { Component } from "react";
-import ProductAttribute from "../ProductAttribute/ProductAttribute";
+import ProductAttributes from "../ProductAttributes/ProductAttributes";
+import ProductPrice from "../ProductPrice/ProductPrice";
 import styles from "./AddToCartForm.module.css";
 
-export default class ProductAttributes extends Component {
+export default class AddToCartForm extends Component {
+  attributes =
+    this.props.product.attributes.length && this.props.product.attributes;
+
+  extractAttributeNames = this.attributes
+    ? this.attributes.map((attr) => attr.id)
+    : [];
+  AttributesWithNullValues = this.extractAttributeNames.reduce(
+    (acc, curr) => ((acc[curr] = null), acc),
+    {}
+  );
+
   state = {
-    AttributesAndValues: [],
+    attributesSelections: { ...this.AttributesWithNullValues },
   };
 
-  attributesAndSelections = (attributeName, selectionValue) => {
-    // if attribute exists
-    if (this.state.AttributesAndValues.some((attr) => attr[attributeName])) {
-      // update attribute
-      const index = this.state.AttributesAndValues.findIndex((attrObj) => {
-        return attrObj[attributeName];
-      });
-      this.setState((prevAttributes) => {
-        return {
-          AttributesAndValues: [
-            ...prevAttributes.AttributesAndValues.slice(0, index),
-            { [attributeName]: selectionValue },
-            ...prevAttributes.AttributesAndValues.slice(index + 1),
-          ],
-        };
-      });
-    } else {
-      // add attribute
-      this.setState((prevAttributes) => ({
-        AttributesAndValues: [
-          ...prevAttributes.AttributesAndValues,
-          { [attributeName]: selectionValue },
-        ],
-      }));
-    }
+  changeAttrSelection = (attributeId, valueObj) => {
+    this.setState((prevSelections) => ({
+      attributesSelections: {
+        ...prevSelections.attributesSelections,
+        [attributeId]: valueObj.id,
+      },
+    }));
   };
+
+  attributesNotSelected() {
+    for (let key in this.state.attributesSelections) {
+      if (this.state.attributesSelections[key] === null) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   render() {
-    console.log(this.state.AttributesAndValues);
     const product = this.props.product;
-    const attributes = this.props.attributes;
-    const price = this.props.price;
+
     return (
       <>
-        {attributes
-          ? attributes.map((attribute) => (
-              <ProductAttribute
-                key={attribute.id}
-                attribute={attribute}
-                attributesAndSelections={this.attributesAndSelections}
-              />
-            ))
-          : ""}
-        <span>Price:</span>
-        <span className={styles.price}>
-          {price.currency.symbol}
-          {price.amount}
-        </span>
+        <ProductAttributes
+          attributes={this.attributes}
+          attributesSelections={this.state.attributesSelections}
+          changeAttrSelection={this.changeAttrSelection}
+        />
+        <ProductPrice
+          product={product}
+          selectedCurrencySymbol={this.props.selectedCurrencySymbol}
+        />
         {product.inStock ? (
           <button
             className={styles.addToCartBtn}
             onClick={() =>
-              this.props.addToCart(product, this.state.AttributesAndValues)
+              this.props.addToCart(product, this.state.attributesSelections)
             }
+            disabled={this.attributesNotSelected()}
           >
             Add to cart
           </button>

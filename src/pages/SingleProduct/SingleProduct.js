@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import styles from "./SingleProduct.module.css";
-import DOMPurify from "dompurify";
 import ProductGallery from "../../components/ProductGallery/ProductGallery";
 import AddToCartForm from "../../components/AddToCartForm/AddToCartForm";
+import ProductDescription from "../../components/ProductDescription.js/ProductDescription";
+import ProductTitle from "../../components/ProductTitle/ProductTitle";
 
 export default class SingleProduct extends Component {
-  selectedCurrencySymbol = this.props.selectedCurrencySymbol;
   categoryObjFromAPI = this.props.categories.find(
     (category) => category.name === this.props.currentCategoryName
   );
@@ -14,30 +14,17 @@ export default class SingleProduct extends Component {
   );
 
   render() {
-    const price = this.product.prices.find(
-      (price) => price.currency.symbol === this.selectedCurrencySymbol
-    );
-    const attributes =
-      this.product.attributes.length && this.product.attributes;
-
     return (
       <div className={styles.singleProduct}>
         <ProductGallery product={this.product} />
         <div>
-          <p className={styles.brand}>{this.product.brand}</p>
-          <p className={styles.productName}>{this.product.name}</p>
+          <ProductTitle product={this.product} />
           <AddToCartForm
             product={this.product}
             addToCart={this.props.addToCart}
-            attributes={attributes}
-            price={price}
+            selectedCurrencySymbol={this.props.selectedCurrencySymbol}
           />
-          <div
-            className={styles.description}
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(this.product.description),
-            }}
-          ></div>
+          <ProductDescription description={this.product.description} />
         </div>
       </div>
     );
