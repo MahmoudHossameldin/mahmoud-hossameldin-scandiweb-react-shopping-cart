@@ -15,7 +15,7 @@ export default class SingleProduct extends Component {
 
   render() {
     return (
-      <div className={styles.singleProduct}>
+      <main className={styles.singleProduct}>
         <ProductGallery product={this.product} />
         <div>
           <ProductTitle product={this.product} />
@@ -26,45 +26,7 @@ export default class SingleProduct extends Component {
           />
           <ProductDescription description={this.product.description} />
         </div>
-      </div>
+      </main>
     );
   }
 }
-
-/*
-  {
-      categories {
-        name
-        products {
-          id
-          name
-          inStock
-          gallery
-          description
-          category
-          attributes {
-            id
-            name
-            type
-            items {
-              displayValue
-              value
-              id
-            }
-          }
-          prices {
-            currency {
-              label
-              symbol
-            }
-            amount
-          }
-          brand
-        }
-      }
-      currencies {
-        label
-        symbol
-      }
-    }
-    */

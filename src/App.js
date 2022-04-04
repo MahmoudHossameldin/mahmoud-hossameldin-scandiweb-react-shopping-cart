@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Category from "./pages/Category/Category";
-import Cart from "./pages/Cart/Cart";
+import CartWrapper from "./pages/CartWrapper/CartWrapper";
 import SingleProductWrapper from "./pages/SingleProductWrapper/SingleProductWrapper";
 import Header from "./components/Header/Header";
 import FetchError from "./components/FetchError.js/FetchError";
@@ -24,7 +24,7 @@ class App extends React.Component {
                 <Redirect to={`/${selectedCategoryName}`} />
               </Route>
               <Route path="/cart">
-                <Cart />
+                <CartWrapper />
               </Route>
               <Route path={"/:categoryName/:productId"}>
                 <SingleProductWrapper />

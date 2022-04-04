@@ -16,21 +16,21 @@ export default class AddToCartForm extends Component {
   );
 
   state = {
-    attributesSelections: { ...this.AttributesWithNullValues },
+    attributeSelections: { ...this.AttributesWithNullValues },
   };
 
   changeAttrSelection = (attributeId, valueObj) => {
-    this.setState((prevSelections) => ({
-      attributesSelections: {
-        ...prevSelections.attributesSelections,
+    this.setState((prevState) => ({
+      attributeSelections: {
+        ...prevState.attributeSelections,
         [attributeId]: valueObj.id,
       },
     }));
   };
 
   attributesNotSelected() {
-    for (let key in this.state.attributesSelections) {
-      if (this.state.attributesSelections[key] === null) {
+    for (let key in this.state.attributeSelections) {
+      if (this.state.attributeSelections[key] === null) {
         return true;
       }
     }
@@ -41,12 +41,13 @@ export default class AddToCartForm extends Component {
     const product = this.props.product;
 
     return (
-      <>
+      <div className={styles.cartForm}>
         <ProductAttributes
           attributes={this.attributes}
-          attributesSelections={this.state.attributesSelections}
+          attributeSelections={this.state.attributeSelections}
           changeAttrSelection={this.changeAttrSelection}
         />
+        <span>Price:</span>
         <ProductPrice
           product={product}
           selectedCurrencySymbol={this.props.selectedCurrencySymbol}
@@ -55,7 +56,7 @@ export default class AddToCartForm extends Component {
           <button
             className={styles.addToCartBtn}
             onClick={() =>
-              this.props.addToCart(product, this.state.attributesSelections)
+              this.props.addToCart(product, this.state.attributeSelections)
             }
             disabled={this.attributesNotSelected()}
           >
@@ -64,7 +65,7 @@ export default class AddToCartForm extends Component {
         ) : (
           <p className={styles.outOfStock}>Out of stock</p>
         )}
-      </>
+      </div>
     );
   }
 }

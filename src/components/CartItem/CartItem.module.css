@@ -1,0 +1,38 @@
+.cartItem {
+  display: flex;
+  align-items: center;
+}
+.cartItem span {
+  font-weight: 700;
+}
+.quantity {
+  margin-left: auto;
+  margin-right: 1.2rem;
+  display: flex;
+  flex-direction: column;
+}
+.quantity button {
+  background: none;
+  border: 1px solid #1d1f22;
+  font-weight: 500;
+  font-size: 3rem;
+  padding: 1rem 1.5rem;
+}
+.quantity button:focus {
+  border: 1px solid #1d1f22;
+}
+.quantity span {
+  margin: 3rem 0;
+  align-self: center;
+  font-weight: 500;
+  line-height: 3.84rem;
+  font-size: 2.4rem;
+}
+.gallery {
+  width: 12.73%;
+  overflow: hidden;
+  position: relative;
+}
+.gallery img {
+  width: 100%;
+}

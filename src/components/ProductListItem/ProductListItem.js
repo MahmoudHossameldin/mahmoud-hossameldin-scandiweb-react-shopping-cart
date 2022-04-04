@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { dataContext } from "../../context/dataContext";
 import { Link } from "react-router-dom";
 import styles from "./ProductListItem.module.css";
-import AddToCartIcon from "../AddToCartIcon/AddToCartIcon";
+import CartIcon from "../CartIcon/CartIcon";
 
 export default class ProductListItem extends Component {
   static contextType = dataContext;
@@ -14,9 +14,9 @@ export default class ProductListItem extends Component {
     const selectCategoryFromAPI = categories.find(
       (category) => category.name === selectedCategoryName
     );
-    const productsList = selectCategoryFromAPI.products;
+    const { products } = selectCategoryFromAPI;
 
-    return productsList.map((product) => {
+    return products.map((product) => {
       const price = product.prices.find(
         (price) => price.currency.symbol === selectedCurrencySymbol
       );
@@ -38,15 +38,13 @@ export default class ProductListItem extends Component {
             </Link>
           </div>
           <div className={styles.nameAndPrice}>
-            {product.attributes.length === 0 && (
-              <AddToCartIcon product={product} />
-            )}
+            {product.attributes.length === 0 && <CartIcon product={product} />}
             <p className={styles.name}>
               {product.brand} {product.name}
             </p>
             <p>
               {price.currency.symbol}
-              {price.amount}
+              {Number(Math.round(price.amount + "e" + 2) + "e-" + 2).toFixed(2)}
             </p>
           </div>
         </div>

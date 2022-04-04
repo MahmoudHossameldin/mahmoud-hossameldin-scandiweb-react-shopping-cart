@@ -1,0 +1,13 @@
+.leftArrow,
+.rightArrow {
+  position: absolute;
+  cursor: pointer;
+}
+.leftArrow {
+  top: 50%;
+  left: 0;
+}
+.rightArrow {
+  top: 50%;
+  right: 0;
+}

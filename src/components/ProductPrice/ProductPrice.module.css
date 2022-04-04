@@ -1,6 +1,8 @@
-.price {
+div .price {
   font-size: 2.4rem;
   margin-top: 1rem;
   margin-bottom: 2rem;
   display: block;
+  font-family: Raleway, sans-serif;
+  font-weight: 700;
 }

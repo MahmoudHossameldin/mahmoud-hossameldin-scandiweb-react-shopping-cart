@@ -1,0 +1,16 @@
+.cart {
+  max-width: 110rem;
+  margin-bottom: 5.4rem;
+}
+.pageTitle {
+  margin-top: 8rem;
+  font-weight: 700;
+  font-size: 3.2rem;
+  line-height: 4rem;
+  margin-bottom: 4rem;
+  text-transform: uppercase;
+}
+.cart hr {
+  background: #e5e5e5;
+  margin: 2rem 0;
+}

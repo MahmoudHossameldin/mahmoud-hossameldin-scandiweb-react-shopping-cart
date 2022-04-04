@@ -22,8 +22,7 @@ export default class ProductAttributes extends Component {
                       className={`${
                         attribute.type === "swatch" ? styles.swatch : ""
                       } ${
-                        this.props.attributesSelections[attribute.id] ===
-                        item.id
+                        this.props.attributeSelections[attribute.id] === item.id
                           ? styles.selected
                           : ""
                       }`}

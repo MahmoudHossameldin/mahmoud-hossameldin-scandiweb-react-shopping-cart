@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import cart from "../../icons/navbar-cart.svg";
 import styles from "./Minicart.module.css";
+import { Link } from "react-router-dom";
 
 export default class Minicart extends Component {
   wrapperRef = React.createRef();
@@ -38,6 +39,9 @@ export default class Minicart extends Component {
 
         <aside className={`${this.state.show ? styles.show : ""}`}>
           <p>Your cart is empty.</p>
+          <p>
+            <Link to="/cart">Cart</Link>
+          </p>
         </aside>
       </div>
     );

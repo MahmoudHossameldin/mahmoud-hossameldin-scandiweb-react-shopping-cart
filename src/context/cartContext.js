@@ -29,13 +29,71 @@ class CartContextProvider extends React.Component {
     }
   };
 
+  changeAttributeValues = (productId, attributeId, attribute) => {
+    const productIndex = this.state.productsInCart.findIndex(
+      (productObj) => productObj.product.id === productId
+    );
+
+    this.setState((prevState) => ({
+      productsInCart: [
+        ...prevState.productsInCart.slice(0, productIndex),
+        {
+          ...prevState.productsInCart[productIndex],
+          selectedAttributes: {
+            ...prevState.productsInCart[productIndex].selectedAttributes,
+            [attributeId]: attribute.id,
+          },
+        },
+        ...prevState.productsInCart.slice(productIndex + 1),
+      ],
+    }));
+  };
+
+  changeQuantity = (product, amount) => {
+    const productIndex = this.state.productsInCart.findIndex(
+      (productObj) => productObj.product.id === product.id
+    );
+
+    if (
+      this.state.productsInCart[productIndex].quantity === 1 &&
+      amount === -1
+    ) {
+      this.setState((prevState) => ({
+        productsInCart: [
+          ...prevState.productsInCart.slice(0, productIndex),
+          ...prevState.productsInCart.slice(productIndex + 1),
+        ],
+      }));
+    } else {
+      this.setState((prevState) => ({
+        productsInCart: [
+          ...prevState.productsInCart.slice(0, productIndex),
+          {
+            ...prevState.productsInCart[productIndex],
+            quantity: prevState.productsInCart[productIndex].quantity + amount,
+          },
+          ...prevState.productsInCart.slice(productIndex + 1),
+        ],
+      }));
+    }
+  };
+
   render() {
     console.log(this.state.productsInCart);
     const { productsInCart } = this.state;
     const addToCart = this.addToCart;
+    const changeQuantity = this.changeQuantity;
+    const changeAttributeValues = this.changeAttributeValues;
 
     return (
-      <Provider value={{ productsInCart, addToCart }}>
+      <Provider
+        value={{
+          productsInCart,
+          addToCart,
+          changeAttributeValues,
+          changeQuantity,
+        }}
+      >
         {this.props.children}
       </Provider>
     );
