@@ -1,21 +1,22 @@
 import React, { Component } from "react";
 import CartItem from "../../components/CartItem/CartItem";
 import styles from "./Cart.module.css";
+import { cartContext } from "../../context/cartContext";
 
 export default class Cart extends Component {
+  static contextType = cartContext;
+
   render() {
+    const cartData = this.context;
+    const { productsInCart } = cartData;
+
     return (
       <main className={styles.cart}>
         <p className={styles.pageTitle}>Cart</p>
-        {this.props.productsInCart.map((item) => (
+        {productsInCart.map((item) => (
           <div key={item.product.id}>
             <hr />
-            <CartItem
-              item={item}
-              changeAttributeValues={this.props.changeAttributeValues}
-              changeQuantity={this.props.changeQuantity}
-              selectedCurrencySymbol={this.props.selectedCurrencySymbol}
-            />
+            <CartItem item={item} />
           </div>
         ))}
       </main>

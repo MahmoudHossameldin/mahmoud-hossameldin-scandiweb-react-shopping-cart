@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Category from "./pages/Category/Category";
-import CartWrapper from "./pages/CartWrapper/CartWrapper";
-import SingleProductWrapper from "./pages/SingleProductWrapper/SingleProductWrapper";
+import Cart from "./pages/Cart/Cart";
+import SingleProduct from "./pages/SingleProduct/SingleProduct";
 import Header from "./components/Header/Header";
 import FetchError from "./components/FetchError.js/FetchError";
 import { dataContext } from "./context/dataContext";
@@ -13,7 +13,7 @@ class App extends React.Component {
   static contextType = dataContext;
   render() {
     const storeData = this.context;
-    const { categories, error, selectedCategoryName } = storeData;
+    const { categories, error } = storeData;
     return (
       <div className="App">
         {(categories.length && !error && (
@@ -21,13 +21,13 @@ class App extends React.Component {
             <Header />
             <Switch>
               <Route exact path="/">
-                <Redirect to={`/${selectedCategoryName}`} />
+                <Redirect to={`/${categories[0].name}`} />
               </Route>
               <Route path="/cart">
-                <CartWrapper />
+                <Cart />
               </Route>
               <Route path={"/:categoryName/:productId"}>
-                <SingleProductWrapper />
+                <SingleProduct />
               </Route>
               <Route path="/:categoryName">
                 <Category />

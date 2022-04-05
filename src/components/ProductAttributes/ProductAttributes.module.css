@@ -19,8 +19,8 @@ div .swatch {
   padding: 2.5rem;
 }
 div .swatch.selected {
-  border-radius: 35%;
-  border: 2px solid #1d1f22;
+  border-radius: 50%;
+  border: 1px solid #1d1f22;
 }
 div div .selected:not(.swatch) {
   background-color: #1d1f22 !important;

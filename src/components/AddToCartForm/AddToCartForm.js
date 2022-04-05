@@ -2,8 +2,13 @@ import React, { Component } from "react";
 import ProductAttributes from "../ProductAttributes/ProductAttributes";
 import ProductPrice from "../ProductPrice/ProductPrice";
 import styles from "./AddToCartForm.module.css";
+import { cartContext } from "../../context/cartContext";
 
 export default class AddToCartForm extends Component {
+  static contextType = cartContext;
+  cartData = this.context;
+  addToCart = this.cartData.addToCart;
+
   attributes =
     this.props.product.attributes.length && this.props.product.attributes;
 
@@ -48,15 +53,12 @@ export default class AddToCartForm extends Component {
           changeAttrSelection={this.changeAttrSelection}
         />
         <span>Price:</span>
-        <ProductPrice
-          product={product}
-          selectedCurrencySymbol={this.props.selectedCurrencySymbol}
-        />
+        <ProductPrice product={product} />
         {product.inStock ? (
           <button
             className={styles.addToCartBtn}
             onClick={() =>
-              this.props.addToCart(product, this.state.attributeSelections)
+              this.addToCart(product, this.state.attributeSelections)
             }
             disabled={this.attributesNotSelected()}
           >

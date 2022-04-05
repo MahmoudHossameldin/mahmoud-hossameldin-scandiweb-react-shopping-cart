@@ -5,9 +5,13 @@ import ProductAttributes from "../ProductAttributes/ProductAttributes";
 import QuantityButtons from "../QuantityButtons/QuantityButtons";
 import GallerySlider from "../GallerySlider/GallerySlider";
 import styles from "./CartItem.module.css";
+import { cartContext } from "../../context/cartContext";
 
 export default class CartItem extends Component {
-  changeAttributeValues = this.props.changeAttributeValues;
+  static contextType = cartContext;
+  cartData = this.context;
+  changeAttributeValues = this.cartData.changeAttributeValues;
+
   product = this.props.item.product;
   changeAttrSelection = (atrributeId, attribute) => {
     this.changeAttributeValues(this.product.id, atrributeId, attribute);
@@ -15,17 +19,13 @@ export default class CartItem extends Component {
 
   render() {
     const product = this.product;
-    const { selectedCurrencySymbol, item } = this.props;
+    const { item } = this.props;
     const { selectedAttributes } = item;
     return (
       <div className={styles.cartItem}>
         <div className={styles.productDetails}>
           <ProductTitle product={product} />
-          <ProductPrice
-            product={product}
-            selectedCurrencySymbol={selectedCurrencySymbol}
-            quantity={this.props.item.quantity}
-          />
+          <ProductPrice product={product} quantity={this.props.item.quantity} />
           <ProductAttributes
             attributes={product.attributes}
             attributeSelections={selectedAttributes}
@@ -33,10 +33,7 @@ export default class CartItem extends Component {
           />
         </div>
         <div className={styles.quantity}>
-          <QuantityButtons
-            item={item}
-            changeQuantity={this.props.changeQuantity}
-          />
+          <QuantityButtons item={item} />
         </div>
         <div className={styles.gallery}>
           <GallerySlider product={product} />

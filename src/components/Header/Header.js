@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import CategoryMenu from "../CategoryMenu/CategoryMenu";
 import CurrencyMenu from "../CurrencyMenu/CurrencyMenu";
 import Minicart from "../Minicart/Minicart";
@@ -12,7 +13,9 @@ class Header extends Component {
         <>
           <CategoryMenu />
           <div className={styles.logo}>
-            <img src={logo} alt="logo" />
+            <Link to="/">
+              <img src={logo} alt="logo" />
+            </Link>
           </div>
           <div className={styles.actions}>
             <CurrencyMenu />

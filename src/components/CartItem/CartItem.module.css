@@ -5,6 +5,9 @@
 .cartItem span {
   font-weight: 700;
 }
+.cartItem button {
+  cursor: pointer;
+}
 .quantity {
   margin-left: auto;
   margin-right: 1.2rem;

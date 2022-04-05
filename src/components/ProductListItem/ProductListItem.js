@@ -29,7 +29,10 @@ export default class ProductListItem extends Component {
         >
           <div className={styles.imgContainer}>
             {!product.inStock && <span>Out of stock</span>}
-            <Link to={`/${product.category}/${product.id}`} key={product.id}>
+            <Link
+              to={`/${selectedCategoryName}/${product.id}`}
+              key={product.id}
+            >
               <img
                 src={product.gallery[0]}
                 alt={product.name}
@@ -52,30 +55,3 @@ export default class ProductListItem extends Component {
     });
   }
 }
-
-// products {
-//     id
-//     name
-//     inStock
-//     gallery
-//     description
-//     category
-//     attributes {
-//       id
-//       name
-//       type
-//       items {
-//         displayValue
-//         value
-//         id
-//       }
-//     }
-//     prices {
-//       currency {
-//         label
-//         symbol
-//       }
-//       amount
-//     }
-//     brand
-//   }
