@@ -13,8 +13,9 @@ export default class CartIcon extends Component {
 
     return (
       <button
-        className={styles.addToCartBtn}
+        className={`${styles.addToCartBtn} atcbtn`}
         onClick={() => addToCart(product)}
+        disabled={!product.inStock}
       >
         <img src={cartIcon} alt="add-to-cart" />
       </button>

@@ -20,10 +20,12 @@ export default class ProductAttributes extends Component {
                           : { background: "none" }
                       }
                       className={`${
-                        attribute.type === "swatch" ? styles.swatch : ""
+                        attribute.type === "swatch"
+                          ? `${styles.swatch}  swatch`
+                          : ""
                       } ${
                         this.props.attributeSelections[attribute.id] === item.id
-                          ? styles.selected
+                          ? `${styles.selected} selectedAttr`
                           : ""
                       }`}
                       onClick={() =>
