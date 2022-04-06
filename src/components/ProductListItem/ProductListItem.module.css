@@ -1,6 +1,9 @@
 .productListItem {
   padding: 1.6rem;
 }
+.productListItem:hover {
+  box-shadow: 0px 4px 35px 0px #a8acb030;
+}
 .imgContainer {
   height: 33rem;
   overflow: hidden;
@@ -33,4 +36,8 @@
 }
 .outOfStock {
   opacity: 0.5;
+}
+.productListItem:hover > div > button {
+  opacity: 1;
+  visibility: visible;
 }

@@ -6,4 +6,6 @@
   cursor: pointer;
   border: none;
   background: none;
+  visibility: hidden;
+  opacity: 0;
 }

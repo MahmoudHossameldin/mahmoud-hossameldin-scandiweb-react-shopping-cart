@@ -24,7 +24,6 @@ class Category extends Component {
     const categoryExist = this.categories.some(
       (category) => category.name === this.props.match.params.categoryName
     );
-    console.log(categoryExist);
     return categoryExist ? (
       <main className={styles.main}>
         <h2>
