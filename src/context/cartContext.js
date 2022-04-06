@@ -4,8 +4,9 @@ const cartContext = React.createContext();
 const { Provider, Consumer } = cartContext;
 
 class CartContextProvider extends React.Component {
+  cartItemsInLocalSotrage = JSON.parse(localStorage.getItem("productsInCart"));
   state = {
-    productsInCart: [],
+    productsInCart: this.cartItemsInLocalSotrage || [],
   };
 
   addToCart = (product, selectedAttributes = null, quantity = 1) => {
@@ -75,6 +76,15 @@ class CartContextProvider extends React.Component {
           ...prevState.productsInCart.slice(productIndex + 1),
         ],
       }));
+    }
+  };
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevState.productsInCart !== this.state.productsInCart) {
+      localStorage.setItem(
+        "productsInCart",
+        JSON.stringify(this.state.productsInCart)
+      );
     }
   };
 

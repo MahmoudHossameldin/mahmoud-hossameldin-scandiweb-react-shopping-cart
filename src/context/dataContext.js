@@ -5,12 +5,13 @@ const dataContext = React.createContext();
 const { Provider, Consumer } = dataContext;
 
 class DataContextProvider extends React.Component {
+  currencySymbolInLocalStorage = localStorage.getItem("selectedCurrencySymbol");
   state = {
     categories: [],
     currencies: [],
     error: null,
     selectedCategoryName: null,
-    selectedCurrencySymbol: null,
+    selectedCurrencySymbol: this.currencySymbolInLocalStorage || null,
   };
 
   changeSelectedCategory = (categoryName) => {
@@ -39,7 +40,8 @@ class DataContextProvider extends React.Component {
           categories: data.categories,
           currencies: data.currencies,
           selectedCategoryName: data.categories[0].name,
-          selectedCurrencySymbol: data.currencies[0].symbol,
+          selectedCurrencySymbol:
+            this.currencySymbolInLocalStorage || data.currencies[0].symbol,
         })
       )
       .catch((err) =>
@@ -48,6 +50,17 @@ class DataContextProvider extends React.Component {
         })
       );
   }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (
+      prevState.selectedCurrencySymbol !== this.state.selectedCurrencySymbol
+    ) {
+      localStorage.setItem(
+        "selectedCurrencySymbol",
+        this.state.selectedCurrencySymbol
+      );
+    }
+  };
 
   render() {
     const {

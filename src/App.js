@@ -35,7 +35,8 @@ class App extends React.Component {
             </Switch>
           </>
         )) ||
-          (error && <FetchError error={error} />)}
+          (error && <FetchError error={error} />) ||
+          (!categories.length && !error && <div className="loader">.</div>)}
       </div>
     );
   }
