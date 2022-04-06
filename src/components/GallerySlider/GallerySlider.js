@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import leftArrow from "../../icons/leftArrow.svg";
-import rightArrow from "../../icons/rightArrow.svg";
+import leftArrow from "../../icons/arrow-left.svg";
+import rightArrow from "../../icons/arrow-right.svg";
 import styles from "./GallerySlider.module.css";
 
 export default class GallerySlider extends Component {

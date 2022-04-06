@@ -5,6 +5,7 @@ import { cartContext } from "../../context/cartContext";
 import CartItem from "../CartItem/CartItem";
 import { Link } from "react-router-dom";
 import TotalCartCost from "../TotalCartCost/TotalCartCost";
+import CartQuantityBadge from "../CartQuantityBadge/CartQuantityBadge";
 
 export default class Minicart extends Component {
   static contextType = cartContext;
@@ -40,7 +41,7 @@ export default class Minicart extends Component {
         <div className={`${styles.minicart} minicart`} ref={this.wrapperRef}>
           <button onClick={this.toggleShow}>
             <img className={styles.cart} src={cart} alt="cart" />
-            <span>{productsInCart.length}</span>
+            {productsInCart.length ? <CartQuantityBadge /> : ""}
           </button>
 
           <aside className={`${this.state.show ? styles.show : ""}`}>

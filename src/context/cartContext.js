@@ -79,7 +79,6 @@ class CartContextProvider extends React.Component {
   };
 
   render() {
-    console.log(this.state.productsInCart);
     const { productsInCart } = this.state;
     const addToCart = this.addToCart;
     const changeQuantity = this.changeQuantity;
