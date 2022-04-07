@@ -12,9 +12,9 @@ export default class QuantityButtons extends Component {
     const { product, quantity } = item;
     return (
       <>
-        <button onClick={() => changeQuantity(product, 1)}>+</button>
+        <button onClick={() => changeQuantity(item, 1)}>+</button>
         <span>{quantity}</span>
-        <button onClick={() => changeQuantity(product, -1)}>-</button>
+        <button onClick={() => changeQuantity(item, -1)}>-</button>
       </>
     );
   }

@@ -54,7 +54,12 @@ export default class Minicart extends Component {
                   >{`${productsInCart.length} items`}</span>
                 </p>
                 {productsInCart.map((item) => (
-                  <CartItem key={item.product.id} item={item} />
+                  <CartItem
+                    key={
+                      item.product.id + JSON.stringify(item.selectedAttributes)
+                    }
+                    item={item}
+                  />
                 ))}
                 <p className={styles.total}>
                   Total <TotalCartCost productsInCart={productsInCart} />

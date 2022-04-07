@@ -14,7 +14,7 @@ export default class Cart extends Component {
       <main className={styles.cart}>
         <p className={styles.pageTitle}>Cart</p>
         {productsInCart.map((item) => (
-          <div key={item.product.id}>
+          <div key={item.product.id + JSON.stringify(item.selectedAttributes)}>
             <hr />
             <CartItem item={item} />
           </div>
