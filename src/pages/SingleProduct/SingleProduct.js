@@ -6,9 +6,7 @@ import ProductDescription from "../../components/ProductDescription.js/ProductDe
 import ProductTitle from "../../components/ProductTitle/ProductTitle";
 import { dataContext } from "../../context/dataContext";
 import { withRouter } from "react-router-dom";
-import fetchProduct from "../../utils/fetchProduct";
 import Error404 from "../../components/Error404/Error404";
-import { client, Query } from "@tilework/opus";
 
 class SingleProduct extends Component {
   static contextType = dataContext;
@@ -24,31 +22,13 @@ class SingleProduct extends Component {
     loading: true,
   };
 
-  getProductData = (product) => {
-    this.setState({ product, loading: false });
-  };
-
   componentDidMount() {
-    client.setEndpoint("http://localhost:4000/");
-
-    const product = new Query("product")
-      .addArgument("id", "String!", this.currentProductId)
-      .addFieldList([
-        "id",
-        "name",
-        "gallery",
-        "inStock",
-        "description",
-        "category",
-        "brand",
-        "attributes{id, name, type, items{displayValue, value, id}}",
-        "prices{amount, currency{label, symbol}}",
-      ]);
-
-    client
-      .post(product, this.abortController.signal)
-      .then((data) => this.getProductData(data.product))
-      .catch((err) => console.log(err));
+    this.context.fetchProduct({
+      id: this.currentProductId,
+      signal: this.abortController.signal,
+      error: (error) => console.log("ERROR: " + error),
+      success: (product) => this.setState({ product, loading: false }),
+    });
   }
 
   componentWillUnmount() {

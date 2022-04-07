@@ -52,6 +52,27 @@ class DataContextProvider extends React.Component {
       );
   }
 
+  fetchProduct = ({ id, signal, success, error }) => {
+    const product = new Query("product")
+      .addArgument("id", "String!", id)
+      .addFieldList([
+        "id",
+        "name",
+        "gallery",
+        "inStock",
+        "description",
+        "category",
+        "brand",
+        "attributes{id, name, type, items{displayValue, value, id}}",
+        "prices{amount, currency{label, symbol}}",
+      ]);
+
+    client
+      .post(product, signal)
+      .then((data) => success(data.product))
+      .catch((err) => error(err));
+  };
+
   componentDidUpdate = (prevProps, prevState) => {
     if (
       prevState.selectedCurrencySymbol !== this.state.selectedCurrencySymbol
@@ -73,6 +94,7 @@ class DataContextProvider extends React.Component {
     } = this.state;
     const changeSelectedCategory = this.changeSelectedCategory;
     const changeSelectedCurrency = this.changeSelectedCurrency;
+    const fetchProduct = this.fetchProduct;
 
     return (
       <Provider
@@ -84,6 +106,7 @@ class DataContextProvider extends React.Component {
           selectedCurrencySymbol,
           changeSelectedCategory,
           changeSelectedCurrency,
+          fetchProduct,
         }}
       >
         {this.props.children}
