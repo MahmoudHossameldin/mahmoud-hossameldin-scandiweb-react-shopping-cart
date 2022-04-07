@@ -27,10 +27,14 @@ export default class CurrencyMenu extends Component {
     }
   };
 
+  chooseAnotherCurrency = (currency) => {
+    this.context.changeSelectedCurrency(currency.symbol);
+    this.setState({ show: false });
+  };
+
   render() {
     const storeData = this.context;
-    const { currencies, selectedCurrencySymbol, changeSelectedCurrency } =
-      storeData;
+    const { currencies, selectedCurrencySymbol } = storeData;
 
     return (
       <div className={styles.menu} ref={this.wrapperRef}>
@@ -51,7 +55,7 @@ export default class CurrencyMenu extends Component {
                   : ""
               }`}
               key={currency.symbol}
-              onClick={() => changeSelectedCurrency(currency.symbol)}
+              onClick={() => this.chooseAnotherCurrency(currency)}
             >
               <span className={styles.symbol}>{currency.symbol}</span>
               <span className={styles.code}>{currency.label}</span>

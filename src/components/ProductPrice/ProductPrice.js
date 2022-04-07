@@ -16,13 +16,7 @@ export default class ProductPrice extends Component {
       <>
         <span className={styles.price}>
           {price.currency.symbol}
-          {this.props.quantity
-            ? Number(
-                Math.round(this.props.quantity * price.amount + "e" + 2) +
-                  "e-" +
-                  2
-              ).toFixed(2)
-            : price.amount}
+          {Number(Math.round(price.amount + "e" + 2) + "e-" + 2).toFixed(2)}
         </span>
       </>
     );

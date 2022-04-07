@@ -28,7 +28,7 @@
 .singleProduct button {
   cursor: pointer;
 }
-.singleProduct span {
+.singleProduct div:nth-child(3) > div:not(:last-child) span {
   font-family: "Roboto Condensed", sans-serif;
   font-size: 1.8rem;
   line-height: 1.8rem;
