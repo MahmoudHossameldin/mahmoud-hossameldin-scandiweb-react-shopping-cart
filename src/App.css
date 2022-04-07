@@ -56,6 +56,12 @@ a:focus {
   background-color: rgba(166, 166, 166, 0.2) !important;
   color: #a6a6a6;
 }
+.minicart aside > div > div:nth-child(1) div div button:not(.selectedAttr) {
+  cursor: no-drop;
+}
+.minicart aside > div > div:nth-child(1) div div .swatch:not(.selectedAttr) {
+  opacity: 0.5;
+}
 /* Add nice button click effect */
 button:active {
   transform: translateY(0.2rem);

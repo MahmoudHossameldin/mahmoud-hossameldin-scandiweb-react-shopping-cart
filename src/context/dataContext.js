@@ -42,6 +42,7 @@ class DataContextProvider extends React.Component {
           selectedCategoryName: data.categories[0].name,
           selectedCurrencySymbol:
             this.currencySymbolInLocalStorage || data.currencies[0].symbol,
+          error: null,
         })
       )
       .catch((err) =>

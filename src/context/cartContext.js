@@ -42,25 +42,6 @@ class CartContextProvider extends React.Component {
     }
   };
 
-  changeAttributeValues = (productId, attributeId, attribute) => {
-    // const productIndex = this.state.productsInCart.findIndex(
-    //   (productObj) => productObj.product.id === productId
-    // );
-    // this.setState((prevState) => ({
-    //   productsInCart: [
-    //     ...prevState.productsInCart.slice(0, productIndex),
-    //     {
-    //       ...prevState.productsInCart[productIndex],
-    //       selectedAttributes: {
-    //         ...prevState.productsInCart[productIndex].selectedAttributes,
-    //         [attributeId]: attribute.id,
-    //       },
-    //     },
-    //     ...prevState.productsInCart.slice(productIndex + 1),
-    //   ],
-    // }));
-  };
-
   changeQuantity = (itemObj, amount) => {
     const productIndex = this.state.productsInCart.findIndex(
       (productObj) =>
@@ -93,6 +74,30 @@ class CartContextProvider extends React.Component {
         ],
       }));
     }
+  };
+
+  changeAttributeValues = (productId, attributeId, attribute) => {
+    // const productIndex = this.state.productsInCart.findIndex(
+    //   (productObj) =>
+    //     productObj.product.id === itemObj.product.id &&
+    //     this.sameAttributes(
+    //       productObj.selectedAttributes,
+    //       itemObj.selectedAttributes
+    //     )
+    // );
+    // this.setState((prevState) => ({
+    //   productsInCart: [
+    //     ...prevState.productsInCart.slice(0, productIndex),
+    //     {
+    //       ...prevState.productsInCart[productIndex],
+    //       selectedAttributes: {
+    //         ...prevState.productsInCart[productIndex].selectedAttributes,
+    //         [attributeId]: attribute.id,
+    //       },
+    //     },
+    //     ...prevState.productsInCart.slice(productIndex + 1),
+    //   ],
+    // }));
   };
 
   componentDidUpdate = (prevProps, prevState) => {
