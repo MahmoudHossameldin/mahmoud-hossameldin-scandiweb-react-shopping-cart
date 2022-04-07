@@ -14,7 +14,6 @@ class SingleProduct extends Component {
   storeData = this.context;
   categories = this.storeData.categories;
 
-  currentCategoryName = this.props.match.params.categoryName;
   currentProductId = this.props.match.params.productId;
 
   state = {
