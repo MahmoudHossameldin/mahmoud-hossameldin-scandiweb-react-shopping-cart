@@ -11,8 +11,6 @@ import Error404 from "../../components/Error404/Error404";
 class SingleProduct extends Component {
   static contextType = dataContext;
   abortController = new AbortController();
-  storeData = this.context;
-  categories = this.storeData.categories;
 
   currentProductId = this.props.match.params.productId;
 
@@ -35,11 +33,11 @@ class SingleProduct extends Component {
   }
 
   render() {
-    const product = this.state.product;
-    if (this.state.loading) {
+    const { product, loading } = this.state;
+    if (loading) {
       return <div className="loader"></div>;
     }
-    if (!this.state.loading && !product) {
+    if (!loading && !product) {
       return <Error404 />;
     }
     return (
