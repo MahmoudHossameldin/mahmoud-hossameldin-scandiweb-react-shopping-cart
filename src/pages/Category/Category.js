@@ -19,10 +19,10 @@ class Category extends Component {
   }
 
   render() {
-    const storeData = this.context;
-    const { selectedCategoryName } = storeData;
+    const { selectedCategoryName } = this.context;
+    const categoryName = this.props.match.params.categoryName;
     const categoryExist = this.categories.some(
-      (category) => category.name === this.props.match.params.categoryName
+      (category) => category.name === categoryName
     );
     return categoryExist ? (
       <main className={styles.main}>
@@ -31,7 +31,7 @@ class Category extends Component {
             selectedCategoryName.slice(1)}
         </h2>
         <div className={styles.productsList}>
-          <ProductListItem />
+          <ProductListItem categoryName={categoryName} />
         </div>
       </main>
     ) : (

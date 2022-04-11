@@ -6,16 +6,40 @@ import CartIcon from "../CartIcon/CartIcon";
 
 export default class ProductListItem extends Component {
   static contextType = dataContext;
+  abortController = new AbortController();
+
+  state = {
+    products: null,
+    loading: true,
+  };
+
+  fetchCategoryProducts = () => {
+    this.context.fetchCategoryProducts(this.props.categoryName, {
+      success: (products) => this.setState({ products, loading: false }),
+      error: (error) => console.log("ERROR: " + error),
+      signal: this.abortController.signal,
+    });
+  };
+
+  componentDidMount() {
+    this.fetchCategoryProducts();
+  }
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevProps.categoryName !== this.props.categoryName) {
+      this.fetchCategoryProducts();
+    }
+  };
+  componentWillUnmount() {
+    this.abortController.abort();
+  }
 
   render() {
-    const storeData = this.context;
-    const { selectedCategoryName, categories, selectedCurrencySymbol } =
-      storeData;
-    const selectCategoryFromAPI = categories.find(
-      (category) => category.name === selectedCategoryName
-    );
-    const { products } = selectCategoryFromAPI;
+    const { products, loading } = this.state;
+    const { selectedCategoryName, selectedCurrencySymbol } = this.context;
 
+    if (loading) {
+      return <div className="loader"></div>;
+    }
     return products.map((product) => {
       const price = product.prices.find(
         (price) => price.currency.symbol === selectedCurrencySymbol

@@ -20,8 +20,7 @@ class SingleProduct extends Component {
   };
 
   componentDidMount() {
-    this.context.fetchProduct({
-      id: this.currentProductId,
+    this.context.fetchProduct(this.currentProductId, {
       signal: this.abortController.signal,
       error: (error) => console.log("ERROR: " + error),
       success: (product) => this.setState({ product, loading: false }),

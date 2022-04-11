@@ -1,5 +1,5 @@
 import React from "react";
-import { client, CombinedField, Query } from "@tilework/opus";
+import { client, CombinedField, Field, Query } from "@tilework/opus";
 
 const dataContext = React.createContext();
 const { Provider, Consumer } = dataContext;
@@ -24,10 +24,7 @@ class DataContextProvider extends React.Component {
 
   componentDidMount() {
     client.setEndpoint("http://localhost:4000/");
-    const categories = new Query("categories", true).addFieldList([
-      "name",
-      "products{id, name, brand, inStock, gallery, category, description, prices{amount, currency{label, symbol}}, attributes{id, name, type, items{displayValue, value, id}}}",
-    ]);
+    const categories = new Query("categories", true).addField("name");
     const currencies = new Query("currencies", true).addFieldList([
       "label",
       "symbol",
@@ -52,7 +49,28 @@ class DataContextProvider extends React.Component {
       );
   }
 
-  fetchProduct = ({ id, signal, success, error }) => {
+  fetchCategoryProducts(category, { success, error, signal }) {
+    const categoryProducts = new Query("category")
+      .addArgument("input", "CategoryInput", { title: category })
+      .addField(
+        new Field("products").addFieldList([
+          "id",
+          "name",
+          "brand",
+          "gallery",
+          "inStock",
+          "attributes{id, name, type, items{displayValue, value, id}}",
+          "prices{amount, currency{label, symbol}}",
+        ])
+      );
+
+    client
+      .post(categoryProducts, { signal })
+      .then((result) => success(result.category.products))
+      .catch((err) => error(err));
+  }
+
+  fetchProduct = (id, { signal, success, error }) => {
     const product = new Query("product")
       .addArgument("id", "String!", id)
       .addFieldList([
@@ -68,7 +86,7 @@ class DataContextProvider extends React.Component {
       ]);
 
     client
-      .post(product, signal)
+      .post(product, { signal })
       .then((data) => success(data.product))
       .catch((err) => error(err));
   };
@@ -95,6 +113,7 @@ class DataContextProvider extends React.Component {
     const changeSelectedCategory = this.changeSelectedCategory;
     const changeSelectedCurrency = this.changeSelectedCurrency;
     const fetchProduct = this.fetchProduct;
+    const fetchCategoryProducts = this.fetchCategoryProducts;
 
     return (
       <Provider
@@ -107,6 +126,7 @@ class DataContextProvider extends React.Component {
           changeSelectedCategory,
           changeSelectedCurrency,
           fetchProduct,
+          fetchCategoryProducts,
         }}
       >
         {this.props.children}
