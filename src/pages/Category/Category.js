@@ -12,10 +12,11 @@ class Category extends Component {
 
   componentDidMount() {
     // Change selected category based on URL parameter if category is visited any way other than clicking the navbar links
-    this.categories.some((category) => {
-      category.name === this.categoryURLParam &&
-        this.context.changeSelectedCategory(this.categoryURLParam);
-    });
+    this.categories.some(
+      (category) =>
+        category.name === this.categoryURLParam &&
+        this.context.changeSelectedCategory(this.categoryURLParam)
+    );
   }
 
   render() {
